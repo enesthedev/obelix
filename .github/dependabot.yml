@@ -27,13 +27,13 @@ updates:
       exclude:
         - "@laravel/*"
         - "laravel-vite-plugin"
+    # vite is an alias of vite-plus-core and the two only move together.
+    # Dependabot can't do that, so they follow the starter kit (see upstream.yml).
+    ignore:
+      - dependency-name: "vite"
+      - dependency-name: "vite-plus"
+      - dependency-name: "@voidzero-dev/*"
     groups:
-      # vite is an alias of vite-plus-core, so it has to move with vite-plus
-      vite:
-        patterns:
-          - "vite"
-          - "vite-plus"
-          - "@voidzero-dev/*"
       npm-minor-patch:
         update-types:
           - "minor"
