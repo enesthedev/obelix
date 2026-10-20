@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620.99 215" width="620.99" height="215" role="img" aria-labelledby="title">
+  <title id="title">Obelix</title>
+  <g id="wordmark" fill="#111315">
+    <path fill-rule="evenodd" d="M0 116A62 62 0 1 1 124 116A62 62 0 1 1 0 116ZM26 116A36 37.5 0 1 0 98 116A36 37.5 0 1 0 26 116Z"/>
+    <path fill-rule="evenodd" d="M142 0H168V176H142Z"/>
+    <path fill-rule="evenodd" d="M143 116A62 62 0 1 1 267 116A62 62 0 1 1 143 116ZM169 116A36 37.5 0 1 0 241 116A36 37.5 0 1 0 169 116Z"/>
+    <path fill-rule="evenodd" d="M405.1 126.5A62 62 0 1 0 387.84 159.84L369.97 141.97A36 37.5 0 0 1 309.44 126.5ZM309.44 105.5A36 37.5 0 0 1 378.56 105.5Z"/>
+    <path fill-rule="evenodd" d="M426 0H452V176H426Z"/>
+    <path fill-rule="evenodd" d="M482 56H508V176H482Z"/>
+    <path fill-rule="evenodd" d="M479.5 17.5a15.5 15.5 0 1 1 31 0a15.5 15.5 0 1 1 -31 0Z"/>
+    <path fill-rule="evenodd" d="M524 56H551.71L620.99 176H593.28Z"/>
+    <path fill-rule="evenodd" d="M593.28 56H620.99L551.71 176H524Z"/>
+  </g>
+  <g id="accent" fill="#111315">
+    <path fill-rule="evenodd" d="M0 189H124V215H0Z"/>
+  </g>
+</svg>
