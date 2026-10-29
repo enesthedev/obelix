@@ -12,6 +12,10 @@ These rules win over the generic guidelines below when they conflict.
 - Upstream: `.github/starter-kit-upstream` holds the last reviewed starter kit commit. When porting upstream changes, update it in the same commit.
 - `vite` is an alias of `vite-plus-core`. Change it only together with `vite-plus`, following the starter kit.
 
+## Worktrees
+
+- For parallel work run `bin/worktree create <branch> [base]`. It creates `.worktrees/<branch>` with its own dependencies, `.env` and SQLite database. `bin/worktree remove <branch>` removes it and keeps the branch.
+
 ## Agent files
 
 - `AGENTS.md` is generated. Edit `.ai/guidelines`, then run `php artisan boost:update` and commit both.

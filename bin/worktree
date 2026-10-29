@@ -1,0 +1,39 @@
+#!/bin/sh
+# An isolated checkout per task: own dependencies, .env and SQLite database.
+set -eu
+
+usage() {
+    echo "usage: bin/worktree create <branch> [base] | remove <branch>" >&2
+    exit 2
+}
+
+[ "$#" -ge 2 ] || usage
+
+command=$1
+branch=$2
+git check-ref-format --branch "$branch" >/dev/null || usage
+
+root=$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")
+path="$root/.worktrees/$(printf '%s' "$branch" | tr '/' '-')"
+
+case "$command" in
+    create)
+        if git show-ref --verify --quiet "refs/heads/$branch"; then
+            git worktree add "$path" "$branch"
+        else
+            git worktree add -b "$branch" "$path" "${3:-HEAD}"
+        fi
+
+        # .env comes from .env.example on purpose: a copied one could point at the main database
+        (cd "$path" && composer setup)
+        echo "Ready: $path"
+        ;;
+    remove)
+        # git refuses when the worktree has uncommitted work, the branch is kept
+        git worktree remove "$path"
+        echo "Removed: $path (branch $branch is kept)"
+        ;;
+    *)
+        usage
+        ;;
+esac

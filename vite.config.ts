@@ -35,6 +35,7 @@ export default defineConfig({
                 '**/.claude/**',
                 '**/.cursor/**',
                 '**/.junie/**',
+                '**/.worktrees/**',
                 '**/vendor/**',
             ],
         },
