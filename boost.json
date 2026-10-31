@@ -19,6 +19,7 @@
         "testing-best-practices",
         "wayfinder-development",
         "inertia-react-development",
-        "tailwindcss-development"
+        "tailwindcss-development",
+        "ship"
     ]
 }
