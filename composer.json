@@ -48,6 +48,7 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
             "@php artisan key:generate",
             "@php artisan boost:update --ansi",
+            "@php -r \"file_exists('.git') && exec('git config --local core.hooksPath .githooks');\"",
             "@php artisan migrate --force",
             "npm install",
             "npm run build"

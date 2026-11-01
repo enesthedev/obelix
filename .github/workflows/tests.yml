@@ -18,6 +18,20 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          fetch-depth: 0
+
+      - name: Check commit messages
+        env:
+          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          if git cat-file -e "$BASE^{commit}" 2>/dev/null; then range="$BASE..HEAD"; else range="HEAD^!"; fi
+          commits=$(git rev-list "$range")
+          message=$(mktemp)
+
+          for commit in $commits; do
+            git log -1 --format=%B "$commit" > "$message"
+            sh .githooks/commit-msg "$message" || { echo "in commit $commit"; exit 1; }
+          done
 
       - name: Setup PHP
         uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2

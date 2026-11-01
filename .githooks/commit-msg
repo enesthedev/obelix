@@ -1,0 +1,13 @@
+#!/bin/sh
+# Rejects AI attribution. Used as the commit-msg hook and by CI.
+# ponytail: a list of known agents, add a pattern when a new one shows up
+
+name='^co-authored-by:[[:space:]]*(claude( code| opus| sonnet| haiku| fable)?([ -]*[0-9][^<]*)?|codex|chatgpt|copilot|cursor( agent)?|gemini( code assist)?|amp|grok( build)?|devin|factory[ -]droid)[[:space:]]*(<|$)'
+address='^co-authored-by:.*(noreply@anthropic\.com|noreply@openai\.com|@cursor\.com|amp@ampcode\.com|copilot@users\.noreply|gemini-code-assist|devin-ai-integration|factory-droid)'
+generated='^[^[:alnum:]#+-]*generated (with|by) \[?(claude|codex|chatgpt|copilot|cursor|gemini|amp|grok|devin|droid)'
+
+if found=$(grep -iE -e "$name" -e "$address" -e "$generated" "$1"); then
+    echo "AI attribution is not allowed in commit messages:" >&2
+    echo "$found" >&2
+    exit 1
+fi
