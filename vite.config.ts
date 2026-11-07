@@ -64,7 +64,11 @@ export default defineConfig({
         singleAttributePerLine: false,
         htmlWhitespaceSensitivity: 'css',
         ignorePatterns: [
+            '.ai/**',
             '.github/**',
+            '.mcp.json',
+            'AGENTS.md',
+            'boost.json',
             'composer.json',
             'resources/js/components/ui/*',
             'resources/views/mail/*',
