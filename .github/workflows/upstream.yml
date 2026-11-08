@@ -1,0 +1,50 @@
+name: upstream
+
+on:
+  schedule:
+    - cron: '17 5 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: upstream
+
+jobs:
+  starter-kit:
+    # Projects generated from Obelix do not need this reminder
+    if: github.repository == 'enesthedev/obelix'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Report starter kit changes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          UPSTREAM: laravel/react-starter-kit
+          TITLE: Laravel starter kit has upstream changes
+        run: |
+          reviewed=$(cat .github/starter-kit-upstream)
+          latest=$(gh api "repos/$UPSTREAM/commits/main" --jq .sha)
+
+          if [ "$reviewed" = "$latest" ]; then
+            echo "Up to date."
+            exit 0
+          fi
+
+          open=$(gh issue list --state open --limit 1000 --json title --jq "map(select(.title == \"$TITLE\")) | length")
+
+          if [ "$open" != "0" ]; then
+            echo "Already reported."
+            exit 0
+          fi
+
+          gh issue create --title "$TITLE" --body "Review https://github.com/$UPSTREAM/compare/$reviewed...main
+
+          Port what applies, then write the reviewed SHA to .github/starter-kit-upstream in the same commit."
